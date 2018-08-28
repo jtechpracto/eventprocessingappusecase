@@ -1,0 +1,68 @@
+
+Application Dependencies
+========================
+JRE 1.8
+MongoDB 3.x
+ActiveMQ 5.6.x
+MySql 8.x
+
+By default app refers to the :
+
+- Active MQ - host:port  (localhost:61616)
+- MongoDB  -host:port (localhost:27017)
+- MySql    -host:port:usr:pass (localhost:3306:root:root)
+
+#Aplication runs at 8280 port with embedded tomcat server inside the SpringBoot .
+
+Refer Below documents for instalation and running steps of above dependencies in Docker :
+ctiveMQInstallation.txt  MongoDBInstalation.txt MysqlDockerInstallation.txt
+
+Note : For APP MySQL is optional .
+===========================================================================
+
+About Application BUILD Type  :
+1.Its a SpringBoot Microservice with Maven as build environment and
+JUnit 4.x and Mockito for Unit Testing .
+
+App Configuration:
+Application is capable of running with :
+Default Configuration embedded with JAR in class path referred to by 
+application.properties as main config to start .
+
+/resources
+	---application.properties (This is default properties file will be referred by application to Unit Test & Run)
+	---logback.xml -- Log4j Configuration to generate the application log
+main/java/com/poc/main/config
+        -- application.properties  =>  ( Sample application.properties tells how you can externalize the most of the configuration stuff 
+                      if you want to use this , can do it via calling SpringBoot Microservice by Command Line specifying the path )
+        -- brokers.xml => Configuartion about AMQ broker Connectivity 
+	-- appcontext.xml =>Entry Point XML of app to control the application flow to inject the beans.
+
+
+TO Run the Application in Docker :
+===================================
+1) Go to the path where you kept the EventProcessingApp-1.0.0.jar in Dev machine
+2) Copy Dockerfile here .
+3) Run below Command to create the image in your docker machine :
+  docker build -t meetingbooking .
+
+4) Once Image installed successfully run below command (Ensure you have done with Installation of AMQ , MongoDB , MYSQL (optional along with table creation script & some commmands inside the MysqlDockerInstallation.txt )
+docker run --net=host -p 127.0.0.1:8280:8280 --name eventprocessingapp -p 8280:8280 -t eventprocessingapp
+
+
+
+To Run Application as simple command without docker  :
+=======================================================
+
+If your path of app running is :
+/home/apps/EventProcessingApp/
+
+then use below of command to run the Application:
+
+java -jar /home/apps/EventProcessingApp/EventProcessingApp-1.0.0.jar
+
+or [To let application refer external properties file instead of classpath properties]
+
+java -jar /home/apps/EventProcessingApp/EventProcessingApp-1.0.0.jar --spring.config.location=file:/home/apps/EventProcessingApp/cfg/application.properties
+
+

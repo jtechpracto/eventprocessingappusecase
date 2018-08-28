@@ -1,0 +1,20 @@
+- Apache Camel as  Integration Framework 
+- SpringBoot Microservice & Spring DATA APIs 
+- Apache CXF Rest Framework for building Rest APIs 
+- For Persistance:
+   MongoDB  as NoSQL
+   MySQL as RDBMS
+
+- For Broker(JMS)
+  Apache Active MQ
+
+- For Cache 
+  Google Guava Cache 
+
+- Unit Testing:
+  JUnit 4.x
+  Mockito 
+
+
+
+

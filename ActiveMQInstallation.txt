@@ -1,0 +1,2 @@
+/home/apps/docker_workspace/activemq# docker pull rmohr/activemq
+docker run  --net=host -p 127.0.0.1:61616:61616 --name amqtest -p 61616:61616 -p 8161:8161 rmohr/activemq

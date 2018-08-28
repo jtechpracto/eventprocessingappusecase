@@ -1,0 +1,24 @@
+#Get the Docker Image 
+docker pull mysql/mysql-server:latest
+#Run the SQL its SQL version 8.x(latest)
+docker run  --net=host -p 127.0.0.1:3306:3306 -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 --name=mysql1 -d mysql/mysql-server:latest --default-authentication-plugin=mysql_native_password
+# Connect to Docker MySQL Container 
+docker exec -it mysql1 bash
+#mysql -hlocalhost -uroot -p
+(Enter pass as root)
+#update mysql.user set host ='%' where user ='root';
+create DATABASE test;
+use test;
+# Run Below Create Table command 
+ CREATE TABLE `event_data` (
+  `event_id` varchar(32) NOT NULL,
+  `sensor_type` varchar(32) DEFAULT NULL,
+  `sensor_reading` varchar(32) DEFAULT NULL,
+  `orientation` varchar(45) DEFAULT NULL,
+  `device_id` varchar(45) DEFAULT NULL,
+  `event_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`event_id`)
+)
+
+#Restart MySQL Container to reflect root user to be allowed from all host ..
+docker start/stop mysql1

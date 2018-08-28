@@ -1,0 +1,59 @@
+1.API SEND Message to JMS EndPoint[For Testing]:
+ =============================================
+
+curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: Basic dGVzdDp0ZXN0' -i 'http://localhost:8280/services/produceEventToJMS?input_payload=501%7CLIGHT%7C200%7C2017-08-27%2010%3A34%3A55%7C21%7C5%2C6%2C7'
+
+API Response :
+==========
+
+Produced:501|LIGHT|200|2017-08-27 10:34:55|21|5,6,7
+
+
+
+2. API Send Event 
+  =================
+
+curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: Basic dGVzdDp0ZXN0' -i 'http://localhost:8280/services/sendEvent?input_payload=506%7CLIGHT%7C200%7C2017-08-27%2010%3A34%3A55%7C21%7C5%2C6%2C7'
+
+API Response :
+=============
+
+{"responseCode":"200","responseDesc":"Success"}
+
+
+3. API GET a Event:
+   =================
+
+curl -X GET -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: Basic dGVzdDp0ZXN0' -i http://localhost:8280/services/getEvent/506
+
+Response :
+{"eventId":"502","eventDate":1503810295000,"deviceId":"21","orientation":{"xAxis":5,"yAxis":6,"zAxis":7},"sensorType":"LIGHT","sensorReading":"200"}
+
+
+4. API DELETE a Event:
+   =================
+
+curl -X DELETE -H 'Content-Type: application/x-www-form-urlencoded' -H 'Authorization: Basic dGVzdDp0ZXN0' -i http://localhost:8280/services/deleteEvent/506
+
+
+  Response:(Returns Record Count affected) 
+  =========
+   1
+
+
+
+
+Running APP:
+
+Running App :
+
+java -jar  <PATH>/MeetingBooking-1.0.0.jar --spring.config.location=<CONFIG LOCATION could be start with file: or classpath:>
+
+
+java -jar /root/git/EventProcessingApp/MeetingBooking/target/MeetingBooking-1.0.0.jar --spring.config.location=file:/home/apps/MeetingBooking/cfg/application.properties
+
+
+
+
+
+
